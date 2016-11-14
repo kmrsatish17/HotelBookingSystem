@@ -1,0 +1,8 @@
+.background-panel {
+	width: 80%;
+	margin: auto;
+}
+.image-as-bg {
+	background-image: url("download.jpeg");
+	background-repeat: no-repeat;
+}
