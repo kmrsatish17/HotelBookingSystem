@@ -19,8 +19,8 @@
     </session-config> -->
     
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>searchRoom.jsp</welcome-file>
+        <welcome-file>searchRoom.html</welcome-file>
     </welcome-file-list>
   
 </web-app>

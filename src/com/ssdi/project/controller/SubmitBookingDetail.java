@@ -25,10 +25,11 @@ public class SubmitBookingDetail extends HttpServlet{
 		
 		RoomBookingDetails roomBookingDetails =  (RoomBookingDetails) request.getSession().getAttribute("roomBookingDetails");
 		
-		request.setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
-		//request.getSession().setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
+		//request.setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
+		request.getSession().setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
 		
-		String url = "/userPayment.jsp";
+		//String url = "/userPayment.jsp";
+		String url = "/index.jsp";
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 		
 		

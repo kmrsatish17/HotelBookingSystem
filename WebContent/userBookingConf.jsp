@@ -11,13 +11,64 @@
 
     <h1 align="center" class="bg-primary">Hotel Booking System</h1>
     <h2>Booking Confirmation</h2>
-	<p>${bookSuccessful}</p>
+    
+	<%-- <p>${bookSuccessful}</p> --%>
+	<p class="text-success">${bookSuccessful}</p>
+	<h3>Booking Receipt</h3>
 	
 	
 	<form name="userPayment" action="searchRoom.jsp" method="post">
 
 		<table class ="table">
 
+			<tr>
+				<td>First Name:</td>
+				<td>${bookSuccessfulDetails.contactDetail.firstname}</td>
+			</tr>
+			
+			<tr>
+				<td>Last Name:</td>
+				<td>${bookSuccessfulDetails.contactDetail.lastname}</td>
+			</tr>
+			
+			<tr>
+				<td>Address Line 1:</td>
+				<td>${bookSuccessfulDetails.contactDetail.address1}</td>
+			</tr>
+			
+			<tr>
+				<td>Address Line 2:</td>
+				<td>${bookSuccessfulDetails.contactDetail.address2}</td>
+			</tr>
+			
+			<tr>
+				<td>City:</td>
+				<td>${bookSuccessfulDetails.contactDetail.city}</td>
+			</tr>
+			
+			<tr>
+				<td>State:</td>
+				<td>${bookSuccessfulDetails.contactDetail.state}</td>
+			</tr>
+			
+			<tr>
+				<td>Country:</td>
+				<td>${bookSuccessfulDetails.contactDetail.country}</td>
+			</tr>
+			
+			<tr>
+				<td>Zip:</td>
+				<td>${bookSuccessfulDetails.contactDetail.zip}</td>
+			</tr>
+			
+			<tr>
+				<td>Phone Number:</td>
+				<td>${bookSuccessfulDetails.contactDetail.phoneNumber}</td>
+			</tr>
+			
+			
+			
+			
 			<tr>
 				<td>CheckIn Date:</td>
 				<td>${bookSuccessfulDetails.fromDate}</td>
@@ -37,10 +88,21 @@
 				<td>Number of Rooms:</td>
 				<td>${bookSuccessfulDetails.noOfRooms}</td>
 			</tr>
+			
+			<tr>
+				<td>Number of Adults:</td>
+				<td>${bookSuccessfulDetails.noOfAdults}</td>
+			</tr>
 
 			<tr>
 				<td>Basic Price:</td>
 				<td>${bookSuccessfulDetails.basicPrice}</td>
+			</tr>
+			
+			
+			<tr>
+				<td>Extra Guest Charge:</td>
+				<td>${bookSuccessfulDetails.extraGuestFee}</td>
 			</tr>
 
 			<tr>

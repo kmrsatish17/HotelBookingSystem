@@ -13,12 +13,14 @@
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
 	<h2>Payment Gateway</h2>
 
-	<p>${emptyPayMsg}</p>
-	<p>${bookNotSuccessful}</p>
-	
+	<p class="text-danger">${emptyPayMsg}</p>
+	<p class="text-danger">${bookNotSuccessful}</p>
+	<%-- <p>${emptyPayMsg}</p>
+	<p>${bookNotSuccessful}</p> --%>
+
 
 	<form name="paymentServlet" action="PaymentServlet" method="post">
-		<table class = "table">
+		<table class="table">
 
 			<tr>
 				<td><label path="cardNumber">Card Number: </label></td>

@@ -2,13 +2,51 @@ package com.ssdi.project.beans;
 
 public class RoomBookingDetails {
 
+	private String userName;
+	
 	private String fromDate;
 	private String toDate;
 	private double totalPrice;
 	private String roomType;
 	private int noOfRooms;
+	private int noOfAdults;
 	private double taxAmount;
 	private double basicPrice;
+	private double extraGuestFee;
+	
+	private UserContactDetail contactDetail;
+	
+	public UserContactDetail getContactDetail() {
+		return contactDetail;
+	}
+
+	public void setContactDetail(UserContactDetail contactDetail) {
+		this.contactDetail = contactDetail;
+	}
+
+	public int getNoOfAdults() {
+		return noOfAdults;
+	}
+
+	public void setNoOfAdults(int noOfAdults) {
+		this.noOfAdults = noOfAdults;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public double getExtraGuestFee() {
+		return extraGuestFee;
+	}
+
+	public void setExtraGuestFee(double extraGuestFee) {
+		this.extraGuestFee = extraGuestFee;
+	}
 
 	public double getTaxAmount() {
 		return taxAmount;
@@ -68,9 +106,10 @@ public class RoomBookingDetails {
 
 	@Override
 	public String toString() {
-		return "RoomBookingDetails [fromDate=" + fromDate + ", toDate=" + toDate + ", totalPrice=" + totalPrice
-				+ ", roomType=" + roomType + ", noOfRooms=" + noOfRooms + ", taxAmount=" + taxAmount + ", basicPrice="
-				+ basicPrice + "]";
+		return "RoomBookingDetails [userName=" + userName + ", fromDate=" + fromDate + ", toDate=" + toDate
+				+ ", totalPrice=" + totalPrice + ", roomType=" + roomType + ", noOfRooms=" + noOfRooms + ", taxAmount="
+				+ taxAmount + ", basicPrice=" + basicPrice + ", extraGuestFee=" + extraGuestFee + "]";
 	}
+
 
 }

@@ -2,16 +2,14 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
-<title>User Login Page</title>
-
+<title>Insert title here</title>
 </head>
 <body>
 
-	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
+<h1 align="center" class="bg-primary">Hotel Booking System</h1>
 	<h2>User Login</h2>
 
 	<p class="text-danger">${emptyLogin}</p>
@@ -19,8 +17,7 @@
 	<p class="text-danger">${contLoginMsg}</p>
 	<p class="text-danger">${userExist}</p>
 
-	<form:errors path="loginProfile.*" />
-	<form name="loginForm" action="LoginServlet" method="post">
+	<form name="loginForm" action="ExistingLoginServlet" method="post">
 		<table class="table">
 
 			<tr>

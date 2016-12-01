@@ -2,13 +2,9 @@ package com.ssdi.project.controller.test;
 
 import com.ssdi.project.beans.RoomSearchSelectDetails;
 import com.ssdi.project.controller.UserSearchServlet;
-
 import junit.framework.TestCase;
-
 import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +17,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,8 +54,8 @@ public class UserSearchServletTest extends TestCase {
 		 * rd=mock(RequestDispatcher.class);
 		 */
 
-		when(request.getParameter("fromDate")).thenReturn("2016-11-02");
-		when(request.getParameter("toDate")).thenReturn("2016-11-04");
+		when(request.getParameter("fromDate")).thenReturn("12/01/2016");
+		when(request.getParameter("toDate")).thenReturn("12/02/2016");
 		when(request.getParameter("noOfRooms")).thenReturn("2");
 		when(request.getSession()).thenReturn(session);
 		when(request.getRequestDispatcher("/searchRoomResult.jsp")).thenReturn(rd);
@@ -76,15 +71,15 @@ public class UserSearchServletTest extends TestCase {
 		List<String> roomTypeList = new ArrayList<String>();
 		roomTypeList.add("deluxe");
 		roomTypeList.add("luxury");
-		selectedDetails.setFromDateSelected("2016-11-02");
-		selectedDetails.setToDateSelected("2016-11-04");
+		roomTypeList.add("super deluxe");
+		selectedDetails.setFromDateSelected("12/01/2016");
+		selectedDetails.setToDateSelected("12/02/2016");
 		selectedDetails.setNoOfRoomSelected("2");
 		selectedDetails.setRoomTypeAvailable(roomTypeList);
 
 		// Verify the session attribute value
 		//verify(session).setAttribute("selectDetails", selectedDetails);
-
-		//verify(rd).forward(request, response);
+		verify(rd).forward(request, response);
 
 		String result = sw.getBuffer().toString().trim();
 

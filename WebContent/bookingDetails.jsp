@@ -39,12 +39,22 @@
 			</tr>
 			
 			<tr>
+				<td>No. of Adults:</td>
+				<td>${bookingDetails.noOfAdults}</td>
+			</tr>
+			
+			<tr>
 				<td>Basic Price:</td>
 				<td>${bookingDetails.basicPrice}</td>
 			</tr>
 			
 			<tr>
-				<td>Tax Amount (15% of Basic Price):</td>
+				<td>Extra Guest Charge:</td>
+				<td>${bookingDetails.extraGuestFee}</td>
+			</tr>
+			
+			<tr>
+				<td>Tax Amount:</td>
 				<td>${bookingDetails.taxAmount}</td>
 			</tr>
 

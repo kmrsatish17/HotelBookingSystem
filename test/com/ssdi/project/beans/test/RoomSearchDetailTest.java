@@ -82,8 +82,8 @@ public class RoomSearchDetailTest {
     @Test
     public void testGetPricePerDay() {
         System.out.println("getPricePerDay");
-        int expResult = 2500;
-        int result = roomSearchDetail.getPricePerDay();
+        double expResult = 2500;
+        double result = roomSearchDetail.getPricePerDay();
         assertEquals(expResult, result);
     }
 

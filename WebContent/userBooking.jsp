@@ -48,6 +48,14 @@
 				<!-- <td><input type="number" name="roomNeeded"></td> -->
 			</tr>
 			</div>
+			
+			<div class="form-group">
+			<tr>
+				<td><label path="noOfAdults">No. of Adults: </label></td>
+				<td>${selectDetails.noOfAdultsSelected}</td>
+				<!-- <td><input type="number" name="roomNeeded"></td> -->
+			</tr>
+			</div>
 
 			<div class="form-group">
 			<tr>

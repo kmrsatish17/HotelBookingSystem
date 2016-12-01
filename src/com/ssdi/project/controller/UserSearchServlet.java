@@ -36,13 +36,19 @@ public class UserSearchServlet extends HttpServlet {
 
 		String fromDateStr = request.getParameter("fromDate");
 		String toDateStr = request.getParameter("toDate");
+		
+		System.out.println("#### fromDateStr " + fromDateStr);
+		System.out.println("#### toDateStr " + toDateStr);
+		
 		String noOfRoomsStr = request.getParameter("noOfRooms");
+		String noOfAdultStr = request.getParameter("noOfAdults");
+		
 		String url;
 
 		if (fromDateStr.isEmpty() || toDateStr.isEmpty() || noOfRoomsStr.isEmpty()) {
 
 			url = "/searchRoom.jsp";
-			String emptySearch = "Please enter the search fields";
+			String emptySearch = "Please enter the search details";
 			request.setAttribute("emptySearch", emptySearch);
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 
@@ -53,7 +59,8 @@ public class UserSearchServlet extends HttpServlet {
 			Date fromDate = null;
 			Date toDate = null;
 
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 
 			try {
 
@@ -68,7 +75,8 @@ public class UserSearchServlet extends HttpServlet {
 			List<RoomSearchDetail> roomSearchListReq = new ArrayList<RoomSearchDetail>();
 			List<String> roomTypeList = new ArrayList<String>();
 			UserProfileDao userDao = new UserProfileDaoImpl();
-
+			double roomPrice;
+			
 			roomSearchList = userDao.searchForRoom(fromDate, toDate);
 
 			if (roomSearchList != null && !(roomSearchList.size() == 0)) {
@@ -78,8 +86,10 @@ public class UserSearchServlet extends HttpServlet {
 					if (room.getNoOfRooms() >= noOfRooms) {
 						room.setFromDate(fromDateStr);
 						room.setToDate(toDateStr);
+						room.setPricePerDay(userDao.getRoomPricePerDay(room.getRoomType()));
 
 						roomTypeList.add(room.getRoomType());
+						
 						roomSearchListReq.add(room);
 
 					}
@@ -90,6 +100,7 @@ public class UserSearchServlet extends HttpServlet {
 				selectedDetails.setFromDateSelected(fromDateStr);
 				selectedDetails.setToDateSelected(toDateStr);
 				selectedDetails.setNoOfRoomSelected(noOfRoomsStr);
+				selectedDetails.setNoOfAdultsSelected(noOfAdultStr);
 				selectedDetails.setRoomTypeAvailable(roomTypeList);
 
 				request.getSession().setAttribute("selectDetails", selectedDetails);

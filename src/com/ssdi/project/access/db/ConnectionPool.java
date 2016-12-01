@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.ssdi.project.access.db.test.ConnectionPoolTest;
-
 public class ConnectionPool {
 	
 	private static ConnectionPool connectPool = null;

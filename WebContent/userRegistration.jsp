@@ -13,8 +13,8 @@
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
 	<h2>User Registration</h2>
 
-	<p>${emptyMsg}</p>
-	<p>${bothPassNoMatchMsg}</p>
+    <p class="text-danger">${emptyMsg}</p>
+    <p class="text-danger">${bothPassNoMatchMsg}</p>
 
 	<form:errors path="registerProfile.*" />
 	<form name="register" action="RegisterServlet" method="post">

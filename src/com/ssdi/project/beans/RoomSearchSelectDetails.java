@@ -7,7 +7,16 @@ public class RoomSearchSelectDetails {
 	private String fromDateSelected;
 	private String toDateSelected;
 	private String noOfRoomSelected;
+	private String noOfAdultsSelected;
 	private List<String> roomTypeAvailable;
+	
+	public String getNoOfAdultsSelected() {
+		return noOfAdultsSelected;
+	}
+	public void setNoOfAdultsSelected(String noOfAdultsSelected) {
+		this.noOfAdultsSelected = noOfAdultsSelected;
+	}
+	
 	public String getFromDateSelected() {
 		return fromDateSelected;
 	}

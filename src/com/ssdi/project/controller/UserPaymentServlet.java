@@ -12,6 +12,7 @@ import com.ssdi.project.access.db.UserProfileDao;
 import com.ssdi.project.access.db.UserProfileDaoImpl;
 import com.ssdi.project.access.db.test.UserProfileDaoImplTest;
 import com.ssdi.project.beans.RoomBookingDetails;
+import com.ssdi.project.beans.UserContactDetail;
 import com.ssdi.project.beans.UserProfile;
 
 @WebServlet(name = "PaymentServlet", urlPatterns = { "/PaymentServlet" })
@@ -37,7 +38,7 @@ public class UserPaymentServlet extends HttpServlet {
 		if (cardNumber.isEmpty() || cardName.isEmpty() || cvvNumber.isEmpty()) {
 
 			url = "/userPayment.jsp";
-			String emptyPayMsg = "Payment deatils are empty";
+			String emptyPayMsg = "Please enter the Payment deatils.";
 			request.setAttribute("emptyPayMsg", emptyPayMsg);
 			RoomBookingDetails roomBookingDetails = (RoomBookingDetails) request.getSession()
 					.getAttribute("roomBookingDetails");
@@ -46,12 +47,12 @@ public class UserPaymentServlet extends HttpServlet {
 
 		} else {
 
-			int cardNumberInt = Integer.parseInt(cardNumber);
+			long cardNumberLong = Long.parseLong(cardNumber);
 			int cvvNumberInt = Integer.parseInt(cvvNumber);
 			// int amountInt = Integer.parseInt(amount);
 			boolean paymentFlag = true;
 
-			paymentFlag = userDao.getPaymentValidity(cardNumberInt, cardName, cvvNumberInt);
+			paymentFlag = userDao.getPaymentValidity(cardNumberLong, cardName, cvvNumberInt);
 
 			if (paymentFlag) {
 
@@ -60,13 +61,20 @@ public class UserPaymentServlet extends HttpServlet {
 				RoomBookingDetails roomBookingDetails = (RoomBookingDetails) request.getSession()
 						.getAttribute("roomBookingDetails");
 
-				System.out.println("#### roomBookingDetails " + roomBookingDetails);
+				System.out.println("???? roomBookingDetails " + roomBookingDetails);
 
 				// Save all data in DB
 				userDao.saveBookingDetails(roomBookingDetails);
 				
 				//Update ROOM_AVAILABLE table
 				userDao.updateRoomAvailable(roomBookingDetails);
+				
+				// Set Contact Details to print
+				
+				UserContactDetail contactDetail = (UserContactDetail) request.getSession().getAttribute("contactDetail");
+				
+				roomBookingDetails.setContactDetail(contactDetail);
+				
 				System.out.println("***** booking Details " + roomBookingDetails);
 				request.setAttribute("bookSuccessfulDetails", roomBookingDetails);
 				getServletContext().getRequestDispatcher(url).forward(request, response);

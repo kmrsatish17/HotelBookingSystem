@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssdi.project.beans.RoomBookingDetails;
 import com.ssdi.project.beans.RoomSearchDetail;
+import com.ssdi.project.beans.UserContactDetail;
 import com.ssdi.project.beans.UserProfile;
 
 public interface UserProfileDao {
@@ -15,10 +16,14 @@ public interface UserProfileDao {
 
 	public List<RoomSearchDetail> searchForRoom(Date fromDate, Date toDate);
 
-	public boolean getPaymentValidity(int cardNumberInt, String cardName, int cvvNumberInt);
+	public boolean getPaymentValidity(long cardNumberInt, String cardName, int cvvNumberInt);
 
-	public void saveBookingDetails(RoomBookingDetails roomBookingDetails);
+	public int saveBookingDetails(RoomBookingDetails roomBookingDetails);
 
-	public void updateRoomAvailable(RoomBookingDetails roomBookingDetails);
-
+	public boolean updateRoomAvailable(RoomBookingDetails roomBookingDetails);
+	
+	public int insertContactDetails(UserContactDetail contactDetails);
+	
+	public double getRoomPricePerDay(String roomType);
+	
 }

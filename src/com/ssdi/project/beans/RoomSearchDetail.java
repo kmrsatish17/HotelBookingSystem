@@ -5,7 +5,7 @@ import java.util.Date;
 public class RoomSearchDetail {
 
 	private String roomType;
-	private int pricePerDay;
+	private double pricePerDay;
 	private int noOfRooms;
 	private String fromDate;
 	private String toDate;
@@ -34,11 +34,11 @@ public class RoomSearchDetail {
 		this.roomType = roomType;
 	}
 
-	public int getPricePerDay() {
+	public double getPricePerDay() {
 		return pricePerDay;
 	}
 
-	public void setPricePerDay(int pricePerDay) {
+	public void setPricePerDay(double pricePerDay) {
 		this.pricePerDay = pricePerDay;
 	}
 
@@ -50,4 +50,13 @@ public class RoomSearchDetail {
 		this.noOfRooms = noOfRooms;
 	}
 
+	@Override
+	public String toString() {
+		return "RoomSearchDetail [roomType=" + roomType + ", pricePerDay=" + pricePerDay + ", noOfRooms=" + noOfRooms
+				+ ", fromDate=" + fromDate + ", toDate=" + toDate + "]";
+	}
+
+	
+	
+	
 }

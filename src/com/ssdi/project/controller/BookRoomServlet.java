@@ -45,21 +45,25 @@ public class BookRoomServlet extends HttpServlet {
 			double totalPrice = 0;
 			double basicPrice = 0;
 			double taxAmount = 0;
+			double extraGuestFee = 0;
 
 			RoomBookingDetails bookDeatils = new RoomBookingDetails();
 			bookDeatils.setFromDate(selectDetails.getFromDateSelected());
 			bookDeatils.setToDate(selectDetails.getToDateSelected());
 			bookDeatils.setRoomType(roomTypeName);
 			bookDeatils.setNoOfRooms(Integer.parseInt(selectDetails.getNoOfRoomSelected()));
+			bookDeatils.setNoOfAdults(Integer.parseInt(selectDetails.getNoOfAdultsSelected()));
 
 			basicPrice = calculateBasePrice(selectDetails, roomTypeName, basicPrice);
+			extraGuestFee = calculateExtraFee (selectDetails.getNoOfRoomSelected(), selectDetails.getNoOfAdultsSelected());
 
-			taxAmount = basicPrice * 0.15;
-			totalPrice = basicPrice + taxAmount;
+			taxAmount = (basicPrice + extraGuestFee) * 0.15;
+			totalPrice = basicPrice + extraGuestFee + taxAmount;
 
 			bookDeatils.setTotalPrice(totalPrice);
 			bookDeatils.setBasicPrice(basicPrice);
 			bookDeatils.setTaxAmount(taxAmount);
+			bookDeatils.setExtraGuestFee(extraGuestFee);
 			request.setAttribute("bookingDetails", bookDeatils);
 			request.getSession().setAttribute("roomBookingDetails", bookDeatils);
 			url = "/bookingDetails.jsp";
@@ -74,12 +78,29 @@ public class BookRoomServlet extends HttpServlet {
 
 	}
 
+	private double calculateExtraFee(String noOfRoom, String noOfAdults) {
+		// TODO Auto-generated method stub
+		
+		double extraGuestCharge = 500;
+		
+		int noOfAdultsInt = Integer.parseInt(noOfAdults);
+		int noOfRoomInt = Integer.parseInt(noOfRoom);
+		
+		if (noOfAdultsInt > ( 2 * noOfRoomInt)){
+			
+			return extraGuestCharge * (noOfAdultsInt - ( 2 * noOfRoomInt));
+		}
+		
+		return 0;
+	}
+
 	private double calculateBasePrice(RoomSearchSelectDetails selectDetails, String roomTypeName, double basicPrice) {
 		
 		Date fromDate = null;
 		Date toDate = null;
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
 
 		try {
 
