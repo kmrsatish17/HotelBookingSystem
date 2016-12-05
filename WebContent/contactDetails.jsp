@@ -10,6 +10,21 @@
 <body>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
+	
+	
+	<table align="right">
+
+		<tr>
+			<td>
+				<form name="logout" action="ExistingLogoutServlet" method="post"
+					align="right">
+					<input type="submit" name="logout" value="logout" &nsbp &nsbp /> <input
+						type="hidden" name="action" value="logout" />
+				</form>
+			</td>
+		</tr>
+	</table>
+	
 	<h2>Contact Details</h2>
 
 	<p class="text-danger">${emptyContactMsg}</p>
@@ -55,7 +70,7 @@
 
 
 			<tr>
-
+                <td><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
 				<td colspan="10" align="left"><input type="submit"
 					value="Continue Booking" /></td>
 			</tr>

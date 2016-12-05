@@ -53,13 +53,13 @@ public class ContactDetailServlet extends HttpServlet{
 			
 			UserProfileDao userDao = new UserProfileDaoImpl();
 
-			UserProfile profile = userDao.getUserProfile(userName);
+			UserProfile profile = userDao.getUserProfile(userName, false);
 			
 			UserContactDetail contactDetail = new UserContactDetail(profile.getFirstName(), profile.getLastName(), userName, address1, address2, city, state, country, zip, phoneNumber);
 
 			request.getSession().setAttribute("contactDetail", contactDetail);
 			
-			int count = userDao.insertContactDetails(contactDetail);
+			int count = userDao.insertContactDetails(contactDetail, false);
 			
 			/*if(count == 0){
 				

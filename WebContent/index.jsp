@@ -27,6 +27,9 @@
 					type="submit" value="Go to Login &nbsp &nbsp " size="2" />
 			</div>
 		</form>
+		
+		<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
+		
 
 	</div>
 

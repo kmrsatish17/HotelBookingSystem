@@ -16,6 +16,8 @@
 	<p class="text-danger">${userPassNotMatching}</p>
 	<p class="text-danger">${contLoginMsg}</p>
 	<p class="text-danger">${userExist}</p>
+	<p class="text-danger">${messageLogOut}</p>
+	
 
 	<form name="loginForm" action="ExistingLoginServlet" method="post">
 		<table class="table">
@@ -35,10 +37,14 @@
 			</tr> -->
 
 			<tr>
-				<td colspan="10" align="left"><input type="submit"
+			
+			<td ><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
+				<td colspan="10" align="right"><input type="submit"
 					value="Login" /></td>
 			</tr>
 		</table>
+		
+		
 
 	</form>
 

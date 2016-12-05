@@ -39,6 +39,8 @@
 	<h2 align="center">Welcome To Hotel Mayura</h2>
 	<p class="text-danger">${emptySearch}</p>
 	<p class="text-danger">${roomNotAvailable}</p>
+	<p class="text-danger">${dateNotProper}</p>
+	<p class="text-danger">${messageLogOut}</p>
 
 	<table align="right">
 

@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class RoomSearchDetailTest {
     private RoomSearchDetail roomSearchDetail;
+    private static final double DELTA = 1e-15;
     
     
     public RoomSearchDetailTest() {
@@ -84,7 +85,7 @@ public class RoomSearchDetailTest {
         System.out.println("getPricePerDay");
         double expResult = 2500;
         double result = roomSearchDetail.getPricePerDay();
-        assertEquals(expResult, result);
+        assertEquals(expResult, result, DELTA);
     }
 
     /**

@@ -21,6 +21,10 @@ public class UserContactDetail {
 	 private String zip;
 	 
 	 private String phoneNumber;
+	 
+	 public UserContactDetail(){
+		 
+	 }
 	 	
 	
 	public UserContactDetail(String firstname, String lastname, String username, String address1, String address2,

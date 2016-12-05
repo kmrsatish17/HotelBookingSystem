@@ -19,6 +19,7 @@ import com.ssdi.project.access.db.UserProfileDaoImpl;
 import com.ssdi.project.beans.RoomBookingDetails;
 import com.ssdi.project.beans.RoomSearchDetail;
 import com.ssdi.project.beans.RoomSearchSelectDetails;
+import com.ssdi.project.business.PerformBusinessOperation;
 
 @WebServlet(name = "BookRoomServlet", urlPatterns = { "/BookRoomServlet" })
 public class BookRoomServlet extends HttpServlet {
@@ -30,13 +31,21 @@ public class BookRoomServlet extends HttpServlet {
 	}
 
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 		RoomSearchSelectDetails selectDetails = (RoomSearchSelectDetails) request.getSession()
 				.getAttribute("selectDetails");
 		String roomTypeName = request.getParameter("roomTypeName");
+		String breakfastChecked = request.getParameter("breakfastChecked");
+		String parkingChecked = request.getParameter("parkingChecked");
+		String cabeChecked = request.getParameter("cabeChecked");
+		
+		System.out.println("### breakfastChecked" + breakfastChecked);
+		System.out.println("### parkingChecked" + parkingChecked);
+		System.out.println("### cabeChecked" + cabeChecked);
+		
+		PerformBusinessOperation business = new PerformBusinessOperation();
 
 		String url;
 
@@ -46,6 +55,11 @@ public class BookRoomServlet extends HttpServlet {
 			double basicPrice = 0;
 			double taxAmount = 0;
 			double extraGuestFee = 0;
+			double breakfastCharge = 0;
+			double cabeCharge = 0;
+			double parkingCharge = 0;
+			double taxFraction = 0.15;
+			
 
 			RoomBookingDetails bookDeatils = new RoomBookingDetails();
 			bookDeatils.setFromDate(selectDetails.getFromDateSelected());
@@ -54,16 +68,33 @@ public class BookRoomServlet extends HttpServlet {
 			bookDeatils.setNoOfRooms(Integer.parseInt(selectDetails.getNoOfRoomSelected()));
 			bookDeatils.setNoOfAdults(Integer.parseInt(selectDetails.getNoOfAdultsSelected()));
 
-			basicPrice = calculateBasePrice(selectDetails, roomTypeName, basicPrice);
-			extraGuestFee = calculateExtraFee (selectDetails.getNoOfRoomSelected(), selectDetails.getNoOfAdultsSelected());
+			basicPrice = business.calculateBasePrice(selectDetails.getFromDateSelected(),
+					selectDetails.getToDateSelected(), Integer.parseInt(selectDetails.getNoOfRoomSelected()),
+					roomTypeName, basicPrice, breakfastChecked, parkingChecked, cabeChecked);
+			
+			breakfastCharge = business.calculateBreakfastCharge(selectDetails.getFromDateSelected(),
+					selectDetails.getToDateSelected(), breakfastChecked);
+			
+			cabeCharge = business.calculateCabeCharge(selectDetails.getFromDateSelected(),
+					selectDetails.getToDateSelected(), cabeChecked);
+			
+			parkingCharge = business.calculateParkingCharge(selectDetails.getFromDateSelected(),
+					selectDetails.getToDateSelected(), parkingChecked);
+			
+			extraGuestFee = business.calculateExtraFee(Integer.parseInt(selectDetails.getNoOfRoomSelected()),
+					Integer.parseInt(selectDetails.getNoOfAdultsSelected()));
 
-			taxAmount = (basicPrice + extraGuestFee) * 0.15;
-			totalPrice = basicPrice + extraGuestFee + taxAmount;
+			taxAmount = (basicPrice + extraGuestFee + cabeCharge + parkingCharge + breakfastCharge) * taxFraction;
+			totalPrice = basicPrice + extraGuestFee + cabeCharge + parkingCharge + breakfastCharge + taxAmount;
 
 			bookDeatils.setTotalPrice(totalPrice);
 			bookDeatils.setBasicPrice(basicPrice);
 			bookDeatils.setTaxAmount(taxAmount);
 			bookDeatils.setExtraGuestFee(extraGuestFee);
+			bookDeatils.setBreakfastCharge(breakfastCharge);
+			bookDeatils.setParkingCharge(parkingCharge);
+			bookDeatils.setCabeCharge(cabeCharge);
+			
 			request.setAttribute("bookingDetails", bookDeatils);
 			request.getSession().setAttribute("roomBookingDetails", bookDeatils);
 			url = "/bookingDetails.jsp";
@@ -76,57 +107,6 @@ public class BookRoomServlet extends HttpServlet {
 
 		}
 
-	}
-
-	private double calculateExtraFee(String noOfRoom, String noOfAdults) {
-		// TODO Auto-generated method stub
-		
-		double extraGuestCharge = 500;
-		
-		int noOfAdultsInt = Integer.parseInt(noOfAdults);
-		int noOfRoomInt = Integer.parseInt(noOfRoom);
-		
-		if (noOfAdultsInt > ( 2 * noOfRoomInt)){
-			
-			return extraGuestCharge * (noOfAdultsInt - ( 2 * noOfRoomInt));
-		}
-		
-		return 0;
-	}
-
-	private double calculateBasePrice(RoomSearchSelectDetails selectDetails, String roomTypeName, double basicPrice) {
-		
-		Date fromDate = null;
-		Date toDate = null;
-
-		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
-		try {
-
-			fromDate = (Date) formatter.parse(selectDetails.getFromDateSelected());
-			toDate = (Date) formatter.parse(selectDetails.getToDateSelected());
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		long numberOfDays = ChronoUnit.DAYS.between(fromDate.toInstant(), toDate.toInstant()) + 1;
-		
-		System.out.println("@@@@ numberOfDays " + numberOfDays);
-		
-		if (roomTypeName.equals("deluxe")) {
-
-			basicPrice = 2000 * (Integer.parseInt(selectDetails.getNoOfRoomSelected())) * numberOfDays;
-		} else if (roomTypeName.equals("luxury")) {
-
-			basicPrice = 2500 * (Integer.parseInt(selectDetails.getNoOfRoomSelected())) * numberOfDays;
-		}else if (roomTypeName.equals("super deluxe")) {
-
-			basicPrice = 3000 * (Integer.parseInt(selectDetails.getNoOfRoomSelected())) * numberOfDays;
-		}
-		
-		return basicPrice;
 	}
 
 }

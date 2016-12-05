@@ -3,7 +3,6 @@ package com.ssdi.project.beans;
 public class RoomBookingDetails {
 
 	private String userName;
-	
 	private String fromDate;
 	private String toDate;
 	private double totalPrice;
@@ -13,9 +12,54 @@ public class RoomBookingDetails {
 	private double taxAmount;
 	private double basicPrice;
 	private double extraGuestFee;
-	
+	private int bookingId;
+	private double netAmountPay;
 	private UserContactDetail contactDetail;
+	private double breakfastCharge = 0;
+	private double cabeCharge = 0;
+	private double parkingCharge = 0;
 	
+	
+	public double getBreakfastCharge() {
+		return breakfastCharge;
+	}
+
+	public void setBreakfastCharge(double breakfastCharge) {
+		this.breakfastCharge = breakfastCharge;
+	}
+
+	public double getCabeCharge() {
+		return cabeCharge;
+	}
+
+	public void setCabeCharge(double cabeCharge) {
+		this.cabeCharge = cabeCharge;
+	}
+
+	public double getParkingCharge() {
+		return parkingCharge;
+	}
+
+	public void setParkingCharge(double parkingCharge) {
+		this.parkingCharge = parkingCharge;
+	}
+
+	public double getNetAmountPay() {
+		return netAmountPay;
+	}
+
+	public void setNetAmountPay(double netAmountPay) {
+		this.netAmountPay = netAmountPay;
+	}
+
+	public int getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+
 	public UserContactDetail getContactDetail() {
 		return contactDetail;
 	}
@@ -107,9 +151,13 @@ public class RoomBookingDetails {
 	@Override
 	public String toString() {
 		return "RoomBookingDetails [userName=" + userName + ", fromDate=" + fromDate + ", toDate=" + toDate
-				+ ", totalPrice=" + totalPrice + ", roomType=" + roomType + ", noOfRooms=" + noOfRooms + ", taxAmount="
-				+ taxAmount + ", basicPrice=" + basicPrice + ", extraGuestFee=" + extraGuestFee + "]";
+				+ ", totalPrice=" + totalPrice + ", roomType=" + roomType + ", noOfRooms=" + noOfRooms + ", noOfAdults="
+				+ noOfAdults + ", taxAmount=" + taxAmount + ", basicPrice=" + basicPrice + ", extraGuestFee="
+				+ extraGuestFee + ", bookingId=" + bookingId + ", netAmountPay=" + netAmountPay + ", contactDetail="
+				+ contactDetail + "]";
 	}
+
+	
 
 
 }

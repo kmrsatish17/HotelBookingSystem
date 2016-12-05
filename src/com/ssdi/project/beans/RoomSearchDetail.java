@@ -9,6 +9,15 @@ public class RoomSearchDetail {
 	private int noOfRooms;
 	private String fromDate;
 	private String toDate;
+	private int noOfAdults;
+	
+	public int getNoOfAdults() {
+		return noOfAdults;
+	}
+
+	public void setNoOfAdults(int noOfAdults) {
+		this.noOfAdults = noOfAdults;
+	}
 
 	public String getFromDate() {
 		return fromDate;

@@ -14,9 +14,9 @@
 	<%-- <%
 		RoomSearchSelectDetails selectDetails = (RoomSearchSelectDetails) request.getSession().getAttribute("selectDetails");
 	%> --%>
-	
+
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>Available Rooms</h2>
+	<h3>Available Rooms</h3>
 
 	<form name="bookRoom" action="userBooking.jsp" method="post">
 		<table class="table">
@@ -25,7 +25,7 @@
 				<td><label path="fromDate">From Date</label></td>
 				<td><label path="toDate">To Date</label></td>
 				<td><label path="roomType">Room Type</label></td>
-				<td><label path="priceDay">Price Per Day</label></td>
+				<td><label path="priceDay">Price Per Day (In RS)</label></td>
 			</tr>
 
 			<c:forEach items="${roomSearchListReq}" var="item">
@@ -37,12 +37,35 @@
 				</tr>
 			</c:forEach>
 
-			<!-- <tr>
-				<td>&nbsp &nbsp</td>
-			</tr> -->
+			<tr>
+				<td><h3>Available Amenities </h3></td>
+			</tr>
+			
+			<tr>
+				<td><label path="aminityType">Amenity Type</label></td>
+				<td><label path="priceDay">Price Per Day (In RS)</label></td>
+			</tr>
+			
+			<tr>
+				<td><label path="fromDate">Breakfast</label></td>
+				<td><label path="fromDate">100.0</label></td>
+			</tr>
+			
+			<tr>
+				<td><label path="fromDate">Onsite Parking</label></td>
+				<td><label path="fromDate">300.0</label></td>
+			</tr>
+			
+			<tr>
+				<td><label path="fromDate">Cabe Facility</label></td>
+				<td><label path="fromDate">1000.0</label></td>
+			</tr>
 
 			<tr>
-				<td colspan="10" align="right"><input type="submit" value="Continue to Book" /></td>
+				<td><INPUT TYPE="button" VALUE="Back"
+					onClick="history.go(-1);"></td>
+				<td colspan="10" align="right"><input type="submit"
+					value="Continue to Book" /></td>
 			</tr>
 		</table>
 

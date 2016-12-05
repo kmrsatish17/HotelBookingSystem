@@ -10,6 +10,20 @@
 <body>
 
     <h1 align="center" class="bg-primary">Hotel Booking System</h1>
+    
+    <table align="right">
+
+		<tr>
+			<td>
+				<form name="logout" action="ExistingLogoutServlet" method="post"
+					align="right">
+					<input type="submit" name="logout" value="logout" &nsbp &nsbp /> <input
+						type="hidden" name="action" value="logout" />
+				</form>
+			</td>
+		</tr>
+	</table>
+    
     <h2>Booking Confirmation</h2>
     
 	<%-- <p>${bookSuccessful}</p> --%>
@@ -99,6 +113,21 @@
 				<td>${bookSuccessfulDetails.basicPrice}</td>
 			</tr>
 			
+			<tr>
+				<td>Breakfast Charge:</td>
+				<td>${bookSuccessfulDetails.breakfastCharge}</td>
+			</tr>
+			
+			<tr>
+				<td>Cabe Facility Charge:</td>
+				<td>${bookSuccessfulDetails.cabeCharge}</td>
+			</tr>
+			
+			<tr>
+				<td>Onsite Parking Charge:</td>
+				<td>${bookSuccessfulDetails.parkingCharge}</td>
+			</tr>
+			
 			
 			<tr>
 				<td>Extra Guest Charge:</td>
@@ -125,8 +154,9 @@
 			</tr> -->
 
 			<tr>
+			<td><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
 				<td colspan="10" align="left"><input type="submit"
-					value="Go to Search" /></td>
+					value="Go to Homepage" /></td>
 			</tr>
 
 

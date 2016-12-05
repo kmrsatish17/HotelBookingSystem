@@ -54,9 +54,10 @@ public class UserSearchServletTest extends TestCase {
 		 * rd=mock(RequestDispatcher.class);
 		 */
 
-		when(request.getParameter("fromDate")).thenReturn("12/01/2016");
-		when(request.getParameter("toDate")).thenReturn("12/02/2016");
-		when(request.getParameter("noOfRooms")).thenReturn("2");
+		when(request.getParameter("fromDate")).thenReturn("11/30/2016");
+		when(request.getParameter("toDate")).thenReturn("11/30/2016");
+		when(request.getParameter("noOfRooms")).thenReturn("5");
+		when(request.getParameter("noOfAdults")).thenReturn("5");
 		when(request.getSession()).thenReturn(session);
 		when(request.getRequestDispatcher("/searchRoomResult.jsp")).thenReturn(rd);
 
@@ -70,15 +71,21 @@ public class UserSearchServletTest extends TestCase {
 		RoomSearchSelectDetails selectedDetails = new RoomSearchSelectDetails();
 		List<String> roomTypeList = new ArrayList<String>();
 		roomTypeList.add("deluxe");
-		roomTypeList.add("luxury");
-		roomTypeList.add("super deluxe");
-		selectedDetails.setFromDateSelected("12/01/2016");
-		selectedDetails.setToDateSelected("12/02/2016");
-		selectedDetails.setNoOfRoomSelected("2");
+		/*roomTypeList.add("luxury");
+		roomTypeList.add("super deluxe");*/
+		selectedDetails.setFromDateSelected("11/30/2016");
+		selectedDetails.setToDateSelected("11/30/2016");
+		selectedDetails.setNoOfRoomSelected("5");
+		selectedDetails.setNoOfAdultsSelected("5");
 		selectedDetails.setRoomTypeAvailable(roomTypeList);
 
-		// Verify the session attribute value
-		//verify(session).setAttribute("selectDetails", selectedDetails);
+		// Verify the session attribute value selectDetails
+		
+		String fromDateTest = selectedDetails.getFromDateSelected();
+		String toDateTest = selectedDetails.getToDateSelected();
+		String noOfRoomTest = selectedDetails.getNoOfRoomSelected();
+		
+		verify(request.getSession()).setAttribute("selectDetails", selectedDetails);
 		verify(rd).forward(request, response);
 
 		String result = sw.getBuffer().toString().trim();

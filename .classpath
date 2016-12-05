@@ -20,5 +20,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/WorksapceProject/HotelManagementApp/WebContent/WEB-INF/lib/hamcrest-core-1.3-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/WorksapceProject/HotelManagementApp/WebContent/WEB-INF/lib/junit-4.10.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/WorksapceProject/HotelManagementApp/WebContent/WEB-INF/lib/mockito-all-1.10.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/WorksapceProject/HotelManagementApp/gson-2.2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

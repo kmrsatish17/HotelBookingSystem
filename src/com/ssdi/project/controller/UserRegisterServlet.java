@@ -52,7 +52,7 @@ public class UserRegisterServlet extends HttpServlet {
 			UserProfile regProfile = new UserProfile(userName, firstName, lastName, emailId, password);
 
 			UserProfileDao userDao = new UserProfileDaoImpl();
-			int count = userDao.insertProfile(regProfile);
+			int count = userDao.insertProfile(regProfile, false);
 
 			/*int count = 0;
 			try {

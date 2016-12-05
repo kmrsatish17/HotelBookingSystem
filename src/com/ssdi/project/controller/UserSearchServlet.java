@@ -53,6 +53,8 @@ public class UserSearchServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 
 		} else {
+			
+			
 
 			int noOfRooms = Integer.parseInt(noOfRoomsStr);
 
@@ -70,6 +72,15 @@ public class UserSearchServlet extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
+			if (fromDate.compareTo(toDate) > 0) {
+
+				url = "/searchRoom.jsp";
+				String dateNotProper = "From Date is after To Date. Please select the proper dates.";
+				request.setAttribute("dateNotProper", dateNotProper);
+				getServletContext().getRequestDispatcher(url).forward(request, response);
+
+			}
 
 			List<RoomSearchDetail> roomSearchList = new ArrayList<RoomSearchDetail>();
 			List<RoomSearchDetail> roomSearchListReq = new ArrayList<RoomSearchDetail>();
@@ -77,7 +88,7 @@ public class UserSearchServlet extends HttpServlet {
 			UserProfileDao userDao = new UserProfileDaoImpl();
 			double roomPrice;
 			
-			roomSearchList = userDao.searchForRoom(fromDate, toDate);
+			roomSearchList = userDao.searchForRoom(fromDate, toDate, false);
 
 			if (roomSearchList != null && !(roomSearchList.size() == 0)) {
 
@@ -86,7 +97,7 @@ public class UserSearchServlet extends HttpServlet {
 					if (room.getNoOfRooms() >= noOfRooms) {
 						room.setFromDate(fromDateStr);
 						room.setToDate(toDateStr);
-						room.setPricePerDay(userDao.getRoomPricePerDay(room.getRoomType()));
+						room.setPricePerDay(userDao.getRoomPricePerDay(room.getRoomType(), false));
 
 						roomTypeList.add(room.getRoomType());
 						

@@ -26,49 +26,73 @@
 		<table class="table">
 
 			<div class="form-group">
-			<tr>
-				<td><label path="fromDate">CheckIn Date: </label></td>
-				<td>${selectDetails.fromDateSelected}</td>
-				<!-- <td><input type="date" name="fromDate" /></td> -->
-			</tr>
+				<tr>
+					<td><label path="fromDate">CheckIn Date: </label></td>
+					<td>${selectDetails.fromDateSelected}</td>
+					<!-- <td><input type="date" name="fromDate" /></td> -->
+				</tr>
 			</div>
 
 			<div class="form-group">
-			<tr>
-				<td><label path="toDate">CheckOut Date: </label></td>
-				<td>${selectDetails.toDateSelected}</td>
-				<!-- <td><input type="date" name="toDate" /></td> -->
-			</tr>
+				<tr>
+					<td><label path="toDate">CheckOut Date: </label></td>
+					<td>${selectDetails.toDateSelected}</td>
+					<!-- <td><input type="date" name="toDate" /></td> -->
+				</tr>
 			</div>
 
 			<div class="form-group">
-			<tr>
-				<td><label path="roomNeeded">No. of Rooms: </label></td>
-				<td>${selectDetails.noOfRoomSelected}</td>
-				<!-- <td><input type="number" name="roomNeeded"></td> -->
-			</tr>
+				<tr>
+					<td><label path="roomNeeded">No. of Rooms: </label></td>
+					<td>${selectDetails.noOfRoomSelected}</td>
+					<!-- <td><input type="number" name="roomNeeded"></td> -->
+				</tr>
+			</div>
+
+			<div class="form-group">
+				<tr>
+					<td><label path="noOfAdults">No. of Adults: </label></td>
+					<td>${selectDetails.noOfAdultsSelected}</td>
+					<!-- <td><input type="number" name="roomNeeded"></td> -->
+				</tr>
+			</div>
+
+			<div class="form-group">
+				<tr>
+					<td><label path="roomType">Room Type: </label></td>
+					<td><select id="roomType" name="roomTypeName">
+
+							<c:forEach items="${selectDetails.roomTypeAvailable}" var="item">
+								<option value="${item}">${item}</option>
+							</c:forEach>
+
+					</select></td>
+					<!-- <td><input type="text" name="roomType"></td> -->
+				</tr>
 			</div>
 			
 			<div class="form-group">
-			<tr>
-				<td><label path="noOfAdults">No. of Adults: </label></td>
-				<td>${selectDetails.noOfAdultsSelected}</td>
-				<!-- <td><input type="number" name="roomNeeded"></td> -->
-			</tr>
+				<tr>
+					<td><label path="breakfast">Breakfast: </label></td>
+					<td><input type="checkbox" name="breakfastChecked"
+								value="breakfast"></td>
+				</tr>
 			</div>
-
+			
 			<div class="form-group">
-			<tr>
-				<td><label path="roomType">Room Type: </label></td>
-				<td><select id="roomType" name="roomTypeName">
-
-						<c:forEach items="${selectDetails.roomTypeAvailable}" var="item">
-							<option value="${item}">${item}</option>
-						</c:forEach>
-
-				</select></td>
-				<!-- <td><input type="text" name="roomType"></td> -->
-			</tr>
+				<tr>
+					<td><label path="parking">Onsite Parking: </label></td>
+					<td><input type="checkbox" name="parkingChecked"
+								value="parking"></td>
+				</tr>
+			</div>
+			
+			<div class="form-group">
+				<tr>
+					<td><label path="cabe">Cabe Facility: </label></td>
+					<td><input type="checkbox" name="cabeChecked"
+								value="cabe"></td>
+				</tr>
 			</div>
 
 
@@ -76,11 +100,13 @@
 				<td>&nbsp &nbsp</td>
 			</tr> -->
 
-			
+
 			<tr>
-				<td colspan="10" align="right"><input type="submit" value="Continue Booking" /></td>
+				<td ><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
+				<td colspan="10" align="right"><input type="submit"
+					value="Continue Booking" /></td>
 			</tr>
-			
+
 		</table>
 
 	</form>

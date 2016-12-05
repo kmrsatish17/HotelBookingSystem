@@ -44,8 +44,23 @@
 			</tr>
 			
 			<tr>
-				<td>Basic Price:</td>
+				<td>Basic Room Charge:</td>
 				<td>${bookingDetails.basicPrice}</td>
+			</tr>
+			
+			<tr>
+				<td>Breakfast Charge:</td>
+				<td>${bookingDetails.breakfastCharge}</td>
+			</tr>
+			
+			<tr>
+				<td>Cabe Facility Charge:</td>
+				<td>${bookingDetails.cabeCharge}</td>
+			</tr>
+			
+			<tr>
+				<td>Onsite Parking Charge:</td>
+				<td>${bookingDetails.parkingCharge}</td>
 			</tr>
 			
 			<tr>
@@ -68,6 +83,7 @@
 			</tr> -->
 
 			<tr>
+			    <td ><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
 				<td colspan="10" align="right"><input type="submit"
 					value="Continue Booking" /></td>
 			</tr>

@@ -44,7 +44,7 @@ public class UserLoginServlet extends HttpServlet {
 		} else {
 
 			UserProfileDao userDao = new UserProfileDaoImpl();
-			UserProfile user = userDao.getUserProfile(userName);
+			UserProfile user = userDao.getUserProfile(userName, false);
 			
 			if(user != null && !user.getPassword().isEmpty() && user.getPassword().equals(password)){
 				

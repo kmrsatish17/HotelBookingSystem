@@ -52,7 +52,7 @@ public class UserPaymentServlet extends HttpServlet {
 			// int amountInt = Integer.parseInt(amount);
 			boolean paymentFlag = true;
 
-			paymentFlag = userDao.getPaymentValidity(cardNumberLong, cardName, cvvNumberInt);
+			paymentFlag = userDao.getPaymentValidity(cardNumber, cardName, cvvNumberInt, false);
 
 			if (paymentFlag) {
 
@@ -64,10 +64,10 @@ public class UserPaymentServlet extends HttpServlet {
 				System.out.println("???? roomBookingDetails " + roomBookingDetails);
 
 				// Save all data in DB
-				userDao.saveBookingDetails(roomBookingDetails);
+				userDao.saveBookingDetails(roomBookingDetails, false);
 				
 				//Update ROOM_AVAILABLE table
-				userDao.updateRoomAvailable(roomBookingDetails);
+				userDao.updateRoomAvailable(roomBookingDetails, false);
 				
 				// Set Contact Details to print
 				

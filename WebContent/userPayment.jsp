@@ -48,6 +48,8 @@
 			</tr> -->
 
 			<tr>
+			
+			<td><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
 				<td colspan="10" align="right"><input type="submit"
 					value="Pay Amount" /></td>
 			</tr>
