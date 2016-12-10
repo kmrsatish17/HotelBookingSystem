@@ -70,7 +70,7 @@ public class BookRoomServlet extends HttpServlet {
 
 			basicPrice = business.calculateBasePrice(selectDetails.getFromDateSelected(),
 					selectDetails.getToDateSelected(), Integer.parseInt(selectDetails.getNoOfRoomSelected()),
-					roomTypeName, basicPrice, breakfastChecked, parkingChecked, cabeChecked);
+					roomTypeName, basicPrice);
 			
 			breakfastCharge = business.calculateBreakfastCharge(selectDetails.getFromDateSelected(),
 					selectDetails.getToDateSelected(), breakfastChecked);

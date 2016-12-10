@@ -5,6 +5,7 @@ public class RoomBookingDetails {
 	private String userName;
 	private String fromDate;
 	private String toDate;
+	private String status;
 	private double totalPrice;
 	private String roomType;
 	private int noOfRooms;
@@ -20,6 +21,14 @@ public class RoomBookingDetails {
 	private double parkingCharge = 0;
 	
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public double getBreakfastCharge() {
 		return breakfastCharge;
 	}

@@ -12,7 +12,7 @@
 <body>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>User Login</h2>
+	<h3>User Login</h3>
 
 	<p class="text-danger">${emptyLogin}</p>
 	<p class="text-danger">${userPassNotMatching}</p>

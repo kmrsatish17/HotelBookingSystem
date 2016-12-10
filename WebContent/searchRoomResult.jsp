@@ -44,21 +44,29 @@
 			<tr>
 				<td><label path="aminityType">Amenity Type</label></td>
 				<td><label path="priceDay">Price Per Day (In RS)</label></td>
+				<td></td>
+				<td></td>
 			</tr>
 			
 			<tr>
 				<td><label path="fromDate">Breakfast</label></td>
 				<td><label path="fromDate">100.0</label></td>
+				<td></td>
+				<td></td>
 			</tr>
 			
 			<tr>
 				<td><label path="fromDate">Onsite Parking</label></td>
 				<td><label path="fromDate">300.0</label></td>
+				<td></td>
+				<td></td>
 			</tr>
 			
 			<tr>
-				<td><label path="fromDate">Cabe Facility</label></td>
+				<td><label path="fromDate">Cab Facility</label></td>
 				<td><label path="fromDate">1000.0</label></td>
+				<td></td>
+				<td></td>
 			</tr>
 
 			<tr>

@@ -25,21 +25,44 @@ public class UserPaymentServlet extends HttpServlet {
 	}
 
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String cardNumber = request.getParameter("cardNumber");
 		String cardName = request.getParameter("cardName");
 		String cvvNumber = request.getParameter("cvvNumber");
+		String expDate = request.getParameter("expDate");
 
 		String url;
 		UserProfileDao userDao = new UserProfileDaoImpl();
+		System.out.println("8888 cardNumber.length()" + cardNumber.length());
+		System.out.println("8888 cvvNumber.length()" + cvvNumber.length());
 
-		if (cardNumber.isEmpty() || cardName.isEmpty() || cvvNumber.isEmpty()) {
+		if (cardNumber == null || cardNumber.isEmpty() || cardName == null || cardName.isEmpty() || cvvNumber == null
+				|| cvvNumber.isEmpty() || expDate == null || expDate.isEmpty()) {
 
 			url = "/userPayment.jsp";
 			String emptyPayMsg = "Please enter the Payment deatils.";
 			request.setAttribute("emptyPayMsg", emptyPayMsg);
+			RoomBookingDetails roomBookingDetails = (RoomBookingDetails) request.getSession()
+					.getAttribute("roomBookingDetails");
+			request.setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+
+		} else if (cardNumber.trim().length() != 16) {
+
+			url = "/userPayment.jsp";
+			String cardNumLengthMsg = "Card number should be of 16 digits.";
+			request.setAttribute("cardNumLengthMsg", cardNumLengthMsg);
+			RoomBookingDetails roomBookingDetails = (RoomBookingDetails) request.getSession()
+					.getAttribute("roomBookingDetails");
+			request.setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+
+		} else if (cvvNumber.trim().length() != 3) {
+
+			url = "/userPayment.jsp";
+			String cvvNumLengthMsg = "CVV number should be of 3 digits.";
+			request.setAttribute("cvvNumLengthMsg", cvvNumLengthMsg);
 			RoomBookingDetails roomBookingDetails = (RoomBookingDetails) request.getSession()
 					.getAttribute("roomBookingDetails");
 			request.setAttribute("totalAmount", roomBookingDetails.getTotalPrice());
@@ -52,7 +75,7 @@ public class UserPaymentServlet extends HttpServlet {
 			// int amountInt = Integer.parseInt(amount);
 			boolean paymentFlag = true;
 
-			paymentFlag = userDao.getPaymentValidity(cardNumber, cardName, cvvNumberInt, false);
+			paymentFlag = userDao.getPaymentValidity(cardNumber, cardName, cvvNumberInt, expDate, false);
 
 			if (paymentFlag) {
 
@@ -65,16 +88,17 @@ public class UserPaymentServlet extends HttpServlet {
 
 				// Save all data in DB
 				userDao.saveBookingDetails(roomBookingDetails, false);
-				
-				//Update ROOM_AVAILABLE table
+
+				// Update ROOM_AVAILABLE table
 				userDao.updateRoomAvailable(roomBookingDetails, false);
-				
+
 				// Set Contact Details to print
-				
-				UserContactDetail contactDetail = (UserContactDetail) request.getSession().getAttribute("contactDetail");
-				
+
+				UserContactDetail contactDetail = (UserContactDetail) request.getSession()
+						.getAttribute("contactDetail");
+
 				roomBookingDetails.setContactDetail(contactDetail);
-				
+
 				System.out.println("***** booking Details " + roomBookingDetails);
 				request.setAttribute("bookSuccessfulDetails", roomBookingDetails);
 				getServletContext().getRequestDispatcher(url).forward(request, response);

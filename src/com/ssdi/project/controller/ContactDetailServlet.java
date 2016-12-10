@@ -47,7 +47,16 @@ public class ContactDetailServlet extends HttpServlet{
 			request.setAttribute("emptyContactMsg", emptyContactMsg);
 			getServletContext().getRequestDispatcher(url).forward(request, response);
 
-		} else {
+		} else if (phoneNumber.trim().length() != 10) {
+
+			url = "/contactDetails.jsp";
+			String phNumMsg = "Phone number should be of 10 digits";
+			request.setAttribute("emptyContactMsg", phNumMsg);
+			getServletContext().getRequestDispatcher(url).forward(request, response);
+
+		} 
+		
+		else {
 			
 			String userName = (String) request.getSession().getAttribute("userName");
 			

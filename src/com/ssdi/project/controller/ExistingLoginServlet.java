@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +52,15 @@ public class ExistingLoginServlet extends HttpServlet {
 
 				String succLoginMsg = "You are Logged In";
 				request.getSession().setAttribute("userNameExist", userName);
+				
+				Cookie userCookie = new Cookie("userCookie", userName);
+				Cookie userCookie2 = new Cookie("userCookie", password);
+                userCookie.setMaxAge(1*60*60);
+                userCookie.setPath("/");
+                userCookie2.setMaxAge(1*60*60);
+                userCookie2.setPath("/");
+                response.addCookie(userCookie);
+                response.addCookie(userCookie2);
 				
 				// Get all booking details and display on Dashboard page
 				

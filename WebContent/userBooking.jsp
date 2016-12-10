@@ -12,10 +12,13 @@
 <body>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>Book Rooms</h2>
+	<h3>Choose Booking Details</h3>
+	
 
 	<p>${emptyMsg}</p>
 	<p>${bothPassNoMatchMsg}</p>
+	
+	
 
 	<%
 		RoomSearchSelectDetails selectDetails = (RoomSearchSelectDetails) request.getSession()
@@ -89,7 +92,7 @@
 			
 			<div class="form-group">
 				<tr>
-					<td><label path="cabe">Cabe Facility: </label></td>
+					<td><label path="cabe">Cab Facility: </label></td>
 					<td><input type="checkbox" name="cabeChecked"
 								value="cabe"></td>
 				</tr>

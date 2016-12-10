@@ -166,14 +166,14 @@ public class UserProfileDaoImplTest {
 
 	@Test
 	public void testGetUserProfile() {
-		String username = "skumar";
+		String username = "rkumar";
 		UserProfile userProfileExp = new UserProfile();
 		UserProfileDao userDao = new UserProfileDaoImpl();
 		UserProfile result = userDao.getUserProfile(username, true);
-		assertEquals("skumar", result.getUserName());
-		assertEquals("satish", result.getFirstName());
+		assertEquals("rkumar", result.getUserName());
+		assertEquals("ramesh", result.getFirstName());
 		assertEquals("kumar", result.getLastName());
-		assertEquals("sat@gmail.com", result.getEmailId());
+		assertEquals("ramesh@gmail.com", result.getEmailId());
 		assertEquals("kumar123", result.getPassword());
 		// assertEquals(userProfileExp, result);
 	}
@@ -199,11 +199,12 @@ public class UserProfileDaoImplTest {
 		String cardNumberInt = "1234567812345678";
 		String cardName = "satish";
 		int cvvNumberInt = 123;
+		String expDate = "12/30/2016";
 
 		boolean flag = false;
 
 		UserProfileDao userDao = new UserProfileDaoImpl();
-		boolean result = userDao.getPaymentValidity(cardNumberInt, cardName, cvvNumberInt, true);
+		boolean result = userDao.getPaymentValidity(cardNumberInt, cardName, cvvNumberInt, expDate, true);
 		assertEquals(true, result);
 	}
 
@@ -213,11 +214,12 @@ public class UserProfileDaoImplTest {
 		String cardNumberInt = "123456";
 		String cardName = "satish";
 		int cvvNumberInt = 123;
+		String expDate = "12/31/2016";
 
 		boolean flag = false;
 
 		UserProfileDao userDao = new UserProfileDaoImpl();
-		boolean result = userDao.getPaymentValidity(cardNumberInt, cardName, cvvNumberInt, true);
+		boolean result = userDao.getPaymentValidity(cardNumberInt, cardName, cvvNumberInt, expDate, true);
 		assertEquals(false, result);
 	}
 
@@ -225,9 +227,12 @@ public class UserProfileDaoImplTest {
 	public void testSaveBookingDetails() {
 
 		RoomBookingDetails roomBookingDetails = new RoomBookingDetails();
-		roomBookingDetails.setUserName("ksatish17");
+		//roomBookingDetails.setUserName("skumar");
+		roomBookingDetails.setUserName("rkumar");
 		roomBookingDetails.setFromDate("11/30/2016");
 		roomBookingDetails.setToDate("12/02/2016");
+		/*roomBookingDetails.setFromDate("12/03/2016");
+		roomBookingDetails.setToDate("12/05/2016");*/
 		roomBookingDetails.setRoomType("deluxe");
 		roomBookingDetails.setNoOfRooms(2);
 		roomBookingDetails.setNoOfAdults(5);
@@ -269,8 +274,8 @@ public class UserProfileDaoImplTest {
 	public void testUpdateRoomAvailable() {
 
 		RoomBookingDetails roomBookingDetails = new RoomBookingDetails();
-		roomBookingDetails.setFromDate("12/03/2016");
-		roomBookingDetails.setToDate("12/03/2016");
+		roomBookingDetails.setFromDate("12/01/2016");
+		roomBookingDetails.setToDate("12/01/2016");
 		roomBookingDetails.setRoomType("deluxe");
 		roomBookingDetails.setNoOfRooms(1);
 		roomBookingDetails.setBasicPrice(2000);
@@ -387,7 +392,7 @@ public class UserProfileDaoImplTest {
 	@Test
 	public void testGetBookingDetails() {
 
-		String uName = "testUser";
+		String uName = "rkumar";
 
 		List<RoomBookingDetails> bookingList = new ArrayList<RoomBookingDetails>();
 
@@ -413,11 +418,20 @@ public class UserProfileDaoImplTest {
 		bookingList = userDao.getBookingDetails(uName, true);
 		System.out.println("%%% result " + bookingList.toString());
 
-		for (RoomBookingDetails roomDet : bookingList) {
+		/*for (RoomBookingDetails roomDet : bookingList) {
 			assertEquals(2500.0, roomDet.getBasicPrice(), DELTA);
-			assertEquals("luxury", roomDet.getRoomType());
+			assertEquals("deluxe", roomDet.getRoomType());
 
-		}
+		}*/
+		
+		assertEquals("deluxe", bookingList.get(0).getRoomType());
+		assertEquals(7700.0, bookingList.get(0).getTotalPrice(), DELTA);
+		assertEquals("2016-11-30", bookingList.get(0).getFromDate());
+		assertEquals("2016-12-02", bookingList.get(0).getToDate());
+		assertEquals(5, bookingList.get(0).getNoOfAdults());
+		assertEquals(750.0, bookingList.get(0).getTaxAmount(), DELTA);
+		assertEquals(2000.0, bookingList.get(0).getBasicPrice(), DELTA);
+		assertEquals(500.0, bookingList.get(0).getExtraGuestFee(), DELTA);
 
 	}
 
@@ -465,7 +479,7 @@ public class UserProfileDaoImplTest {
 		room.setTaxAmount(200.0);
 		room.setBasicPrice(2500.0);
 		room.setExtraGuestFee(500.0);
-		room.setBookingId(71);
+		room.setBookingId(10);
 		room.setNetAmountPay(0.0);
 		room.setContactDetail(null);
 
@@ -511,7 +525,7 @@ public class UserProfileDaoImplTest {
 	public void testGetBookingDetailsById() {
 
 		boolean cancel;
-		String booking = "12";
+		String booking = "121";
 
 		RoomBookingDetails room = new RoomBookingDetails();
 		/*
@@ -537,7 +551,7 @@ public class UserProfileDaoImplTest {
 	public void testGetBookingDetailsById2() {
 
 		boolean cancel;
-		String booking = "20";
+		String booking = "2";
 
 		RoomBookingDetails room = new RoomBookingDetails();
 
@@ -545,19 +559,140 @@ public class UserProfileDaoImplTest {
 		room = userDao.getBookingDetailsById(booking, true);
 		System.out.println("%%$ room " + room);
 
-		assertEquals("skumar", room.getUserName());
-		assertEquals("2016-12-04", room.getFromDate());
-		assertEquals(3, room.getNoOfAdults());
-		assertEquals(825.0, room.getTaxAmount(), DELTA);
-		assertEquals(5000.0, room.getBasicPrice(), DELTA);
+				
+		assertEquals("deluxe", room.getRoomType());
+		assertEquals(7700.0, room.getTotalPrice(), DELTA);
+		assertEquals("2016-11-30", room.getFromDate());
+		assertEquals("2016-12-02", room.getToDate());
+		assertEquals(5, room.getNoOfAdults());
+		assertEquals(750.0, room.getTaxAmount(), DELTA);
+		assertEquals(2000.0, room.getBasicPrice(), DELTA);
+		assertEquals(500.0, room.getExtraGuestFee(), DELTA);
 
 	}
+	
+	
+	@Test
+	public void testGetRoomEntryDetails() {
+
+		boolean cancel;
+		String booking = "20";
+		String oprUserName = null ;
+
+		List<RoomEntryDetails> result = new ArrayList<RoomEntryDetails>();
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		result = userDao.getRoomEntryDetails(true);
+		System.out.println("%%$ result " + result);
+		
+		/*for (RoomEntryDetails detail : result){
+			
+			oprUserName = detail.getOprUserName();
+			System.out.println(detail.getOprUserName());
+		}*/
+		
+		assertEquals("ksanju", result.get(0).getOprUserName());
+		assertEquals("Sujal", result.get(0).getFirstName());
+		assertEquals("Singh", result.get(0).getLastName());
+		assertEquals("2016-11-30", result.get(0).getFromDate());
+		assertEquals("2016-11-30", result.get(0).getToDate());
+		assertEquals("102", result.get(0).getRoomNumber());
+		assertEquals("11", result.get(0).getBookId());
+		assertEquals("deluxe", result.get(0).getRoomType());
+		
+
+	}
+	
+	
+	@Test
+	public void testGetRoomEntryDetailsByRoomNo() {
+
+		boolean cancel;
+		String roomNo = "102";
+		String oprUserName = null ;
+
+		RoomEntryDetails result = new RoomEntryDetails();
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		result = userDao.getRoomEntryDetailsByRoomNo(roomNo, true);
+		System.out.println("%%$ result " + result);
+		
+		assertEquals("ksanju", result.getOprUserName());
+		assertEquals("Sujal", result.getFirstName());
+		assertEquals("Singh", result.getLastName());
+		assertEquals("2016-11-30", result.getFromDate());
+		assertEquals("2016-11-30", result.getToDate());
+		assertEquals("102", result.getRoomNumber());
+		assertEquals("11", result.getBookId());
+		assertEquals("deluxe", result.getRoomType());
+		
+	}
+	
+	@Test
+	public void testGetRoomEntryDetailsByRoomNo2() {
+
+		boolean cancel;
+		String roomNo = "1011";
+		String oprUserName = null ;
+
+		RoomEntryDetails result = new RoomEntryDetails();
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		result = userDao.getRoomEntryDetailsByRoomNo(roomNo, true);
+		System.out.println("%%$ result " + result);
+		
+		assertEquals(null, result);
+		/*assertEquals("2016-12-05", result.getToDate());
+		assertEquals("deluxe", result.getRoomType());
+		assertEquals("101", result.getRoomNumber());*/
+		
+	}
+	
+	
+	
+	
+	@Test
+	public void testCheckoutRoomEntryDetail() {
+
+		boolean checkout;
+		String roomNo = "";
+		String oprUserName = null ;
+
+		RoomEntryDetails input = new RoomEntryDetails();
+		input.setRoomNumber("101");
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		checkout = userDao.checkoutRoomEntryDetail(input, true);
+		System.out.println("%%$ checkout " + checkout);
+		
+		assertEquals(true, checkout);
+		
+	}
+	
+	@Test
+	public void testCheckoutRoomEntryDetail2() {
+
+		boolean checkout;
+		String roomNo = "";
+		String oprUserName = null ;
+
+		RoomEntryDetails input = new RoomEntryDetails();
+		input.setRoomNumber("");
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		checkout = userDao.checkoutRoomEntryDetail(input, true);
+		System.out.println("%%$ checkout " + checkout);
+		
+		assertEquals(false, checkout);
+		
+	}
+	
 
 	@Test
 	public void testUpdateBookingDetails() {
 
 		boolean update;
-		String booking = "20";
+		String booking = "12";
 
 		RoomBookingDetails room = new RoomBookingDetails();
 
@@ -571,7 +706,7 @@ public class UserProfileDaoImplTest {
 		room.setTaxAmount(200.0);
 		room.setBasicPrice(2500.0);
 		room.setExtraGuestFee(500.0);
-		room.setBookingId(51);
+		room.setBookingId(12);
 		room.setNetAmountPay(0.0);
 		// room.setContactDetail(null);
 
@@ -608,7 +743,7 @@ public class UserProfileDaoImplTest {
 		room.setTaxAmount(200.0);
 		room.setBasicPrice(2500.0);
 		room.setExtraGuestFee(500.0);
-		room.setBookingId(21);
+		room.setBookingId(11);
 		room.setNetAmountPay(0.0);
 		// room.setContactDetail(null);
 
@@ -645,9 +780,37 @@ public class UserProfileDaoImplTest {
 		System.out.println("%%$ operator " + operator.getOprEmailId());
 
 		assertEquals("sanju", operator.getOprFirstName());
-		assertEquals("gowda", operator.getOprLastName());
+		assertEquals("gauda", operator.getOprLastName());
 		assertEquals("sanju@gmail.com", operator.getOprEmailId());
+		assertEquals("sanju123", operator.getOprPassword());
 		// assertEquals("sanju", operator.getOprFirstName());
+
+	}
+	
+	@Test
+	public void testgetOperatorProfile2() {
+
+		boolean update;
+		String userName = "ksanjuuu";
+
+		OperatorProfile operator = new OperatorProfile();
+
+		/*
+		 * room.setUserName("testUser"); room.setFromDate("11/30/2016");
+		 * room.setToDate("11/30/2016"); room.setTotalPrice(2700.0);
+		 * room.setRoomType("luxury"); room.setNoOfRooms(1);
+		 * room.setNoOfAdults(3); room.setTaxAmount(200.0);
+		 * room.setBasicPrice(2500.0); room.setExtraGuestFee(500.0);
+		 * room.setBookingId(21); room.setNetAmountPay(0.0);
+		 */
+		// room.setContactDetail(null);
+
+		UserProfileDao userDao = new UserProfileDaoImpl();
+		operator = userDao.getOperatorProfile(userName, true);
+		System.out.println("%%$ operator " + operator);
+
+	//	assertEquals("sanju", operator.getOprFirstName());
+		assertEquals(null, operator);
 
 	}
 
@@ -655,7 +818,7 @@ public class UserProfileDaoImplTest {
 	public void testsearchRoomForEntry() {
 
 		boolean update;
-		String roomtype = "luxury";
+		String roomtype = "deluxe";
 		int noOfRoom = 3;
 
 		// OperatorProfile operator = new OperatorProfile();
@@ -678,10 +841,9 @@ public class UserProfileDaoImplTest {
 
 		List<String> roomAvaExp = new ArrayList<>();
 		// roomAvaExp.add("201");
-		roomAvaExp.add("202");
-		roomAvaExp.add("203");
-		roomAvaExp.add("204");
-		roomAvaExp.add("205");
+		/*roomAvaExp.add("202");
+		roomAvaExp.add("203");*/
+		roomAvaExp.add("101");
 
 		assertEquals(roomAvaExp, roomAva);
 
@@ -691,7 +853,7 @@ public class UserProfileDaoImplTest {
 	public void testsearchRoomForEntry2() {
 
 		boolean update;
-		String roomtype = "luxuryyy";
+		String roomtype = "luxury";
 		int noOfRoom = 3;
 
 		// OperatorProfile operator = new OperatorProfile();
@@ -730,13 +892,12 @@ public class UserProfileDaoImplTest {
 		String fromDateStr = "11/30/2016";
 		String toDateStr = "11/30/2016";
 		String[] roomNumberChecked = new String[10];
-		roomNumberChecked[0] = "201";
-		roomNumberChecked[1] = "202";
-		String bookId = "11";
+		roomNumberChecked[0] = "103";
+		String bookId = "111";
 
 		RoomEntryDetails roomEntry = new RoomEntryDetails();
 
-		roomEntry.setOprUserName("testUser");
+		roomEntry.setOprUserName("ksanju");
 		roomEntry.setFromDate("11/30/2016");
 		roomEntry.setToDate("11/30/2016");
 		roomEntry.setRoomNumberChecked(roomNumberChecked);
@@ -759,9 +920,9 @@ public class UserProfileDaoImplTest {
 		String fromDateStr = "11/30/2016";
 		String toDateStr = "11/30/2016";
 		String[] roomNumberChecked = new String[10];
-		roomNumberChecked[0] = "201";
-		roomNumberChecked[1] = "202";
-		String bookId = "11";
+		roomNumberChecked[0] = "103";
+		//roomNumberChecked[1] = "202";
+		String bookId = "112";
 
 		RoomEntryDetails roomEntry = new RoomEntryDetails();
 

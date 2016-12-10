@@ -40,7 +40,7 @@
 	<p class="text-danger">${emptySearch}</p>
 	<p class="text-danger">${roomNotAvailable}</p>
 	<p class="text-danger">${dateNotProper}</p>
-	<p class="text-danger">${messageLogOut}</p>
+	<p class="text-success">${messageLogOut}</p>
 
 	<table align="right">
 
@@ -74,7 +74,7 @@
 		</tr>
 	</table> -->
 
-	<h2>Search for Rooms</h2>
+	<h3>Search for Rooms</h3>
 
 	<form name="searchRoom" action="SearchServlet" method="post">
 		<table class="table">

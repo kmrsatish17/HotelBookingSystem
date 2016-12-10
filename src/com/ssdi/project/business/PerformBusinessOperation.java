@@ -100,7 +100,7 @@ public class PerformBusinessOperation {
 	}
 
 	public double calculateBasePrice(String fromDateStr, String toDateStr, int noOfRoomSelected, String roomTypeName,
-			double basicPrice, String breakfastChecked, String parkingChecked, String cabeChecked) {
+			double basicPrice) {
 
 		double roomPricePerDayDel;
 		double roomPricePerDaySupDel;
@@ -135,7 +135,7 @@ public class PerformBusinessOperation {
 		return basicPrice;
 	}
 
-	private long getNumberOfDays(String fromDateStr, String toDateStr) {
+	public long getNumberOfDays(String fromDateStr, String toDateStr) {
 		Date fromDate = null;
 		Date toDate = null;
 

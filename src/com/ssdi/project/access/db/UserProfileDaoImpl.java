@@ -208,15 +208,42 @@ public class UserProfileDaoImpl implements UserProfileDao {
 	}
 
 	@Override
-	public boolean getPaymentValidity(String cardNumberInt, String cardName, int cvvNumberInt, boolean testDb) {
+	public boolean getPaymentValidity(String cardNumberInt, String cardName, int cvvNumberInt, String expDate, boolean testDb) {
 
 		ConnectionPool pool = ConnectionPool.getInstance();
 		Connection connection = pool.getConnection(testDb);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		
+		
+		Date expDateUtil = null;
+
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+		try {
+
+			expDateUtil = (Date) formatter.parse(expDate);
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		SimpleDateFormat destFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String expDateInput = destFormatter.format(expDateUtil);
+		
+		java.sql.Date expDateSql = new java.sql.Date(expDateUtil.getTime());
+		
+		System.out.println("&&%%##@@ expDate " + expDate);
+		System.out.println("&&%%##@@ expDateUtil " + expDateUtil);
+		System.out.println("&&%%##@@ expDateInput " + expDateInput);
+		System.out.println("&&%%##@@ expDateSql " + expDateSql);
+
 
 		int CVV_NUMBER = 0;
 		String cName = null;
+		String expDateDB = null;
 
 		try {
 			ps = connection.prepareStatement(GET_CARD_DETAIL_SQL);
@@ -228,9 +255,10 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
 				cName = rs.getString("NAME_ON_CARD");
 				CVV_NUMBER = Integer.parseInt(rs.getString("CVV_NUMBER"));
+				expDateDB = rs.getString("EXPIRY_DATE");
 			}
 
-			if (cName != null && !cName.isEmpty() && cName.equals(cardName) && CVV_NUMBER == cvvNumberInt) {
+			if (cName != null && !cName.isEmpty() && cName.equals(cardName) && CVV_NUMBER == cvvNumberInt && expDateDB.equals(expDateInput)) {
 
 				return true;
 			}
@@ -402,8 +430,8 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
 		try {
 			// ps = connection.prepareStatement(GET_ROOM_DETAILS_SQL);
-			ps = connection.prepareStatement("SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "';");
-			System.out.println("%%% SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "';");
+			ps = connection.prepareStatement("SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "' and STATUS = 'new' ;");
+			System.out.println("%%% SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "' and STATUS = 'new' ;");
 			rs = ps.executeQuery();
 			RoomBookingDetails roomBookingDetail = null;
 
@@ -421,6 +449,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 				roomBookingDetail.setExtraGuestFee(Double.parseDouble(rs.getString("GUEST_CHARGE")));
 				roomBookingDetail.setTaxAmount(Double.parseDouble(rs.getString("TAX_AMOUNT")));
 				roomBookingDetail.setTotalPrice(Double.parseDouble(rs.getString("TOTAL_PRICE")));
+				roomBookingDetail.setStatus(rs.getString("STATUS"));
 
 				roomBookingDetailList.add(roomBookingDetail);
 			}
@@ -477,8 +506,11 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		try {
 			// ps = connection.prepareStatement(UPDATE_ROOM_AVAILABLE_SQL);
 			// delete the booking record
-			ps = connection.prepareStatement("DELETE from ROOM_BOOKING_DETAIL where BOOKING_ID = " + bookIdLong + ";");
-			System.out.println("DELETE from ROOM_BOOKING_DETAIL where BOOKING_ID = " + bookIdLong + ";");
+			/*ps = connection.prepareStatement("DELETE from ROOM_BOOKING_DETAIL where BOOKING_ID = " + bookIdLong + ";");
+			System.out.println("DELETE from ROOM_BOOKING_DETAIL where BOOKING_ID = " + bookIdLong + ";");*/
+			
+			ps = connection.prepareStatement("UPDATE ROOM_BOOKING_DETAIL SET STATUS = 'cancel' where BOOKING_ID = " + bookIdLong + ";");
+			System.out.println("UPDATE ROOM_BOOKING_DETAIL SET STATUS = 'cancel' where BOOKING_ID = " + bookIdLong + ";");
 
 			ps.executeUpdate();
 
@@ -532,6 +564,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 				roomBookingDetail.setExtraGuestFee(Double.parseDouble(rs.getString("GUEST_CHARGE")));
 				roomBookingDetail.setTaxAmount(Double.parseDouble(rs.getString("TAX_AMOUNT")));
 				roomBookingDetail.setTotalPrice(Double.parseDouble(rs.getString("TOTAL_PRICE")));
+				roomBookingDetail.setStatus(rs.getString("STATUS"));
 
 				// roomBookingDetailList.add(roomBookingDetail);
 			}
@@ -869,6 +902,57 @@ public class UserProfileDaoImpl implements UserProfileDao {
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<RoomBookingDetails> getCancelledBookingDetails(String userName, boolean testDb) {
+
+		// TODO Auto-generated method stub
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection(testDb);
+		PreparedStatement ps = null;
+		PreparedStatement psCheck = null;
+		ResultSet rs = null;
+
+		List<RoomBookingDetails> roomBookingDetailList = new ArrayList<RoomBookingDetails>();
+
+		try {
+			// ps = connection.prepareStatement(GET_ROOM_DETAILS_SQL);
+			ps = connection.prepareStatement("SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "' and STATUS = 'cancel' ;");
+			System.out.println("%%% SELECT * from ROOM_BOOKING_DETAIL where USER_NAME = '" + userName + "' and STATUS = 'cancel' ;");
+			rs = ps.executeQuery();
+			RoomBookingDetails roomBookingDetail = null;
+
+			while (rs.next()) {
+				roomBookingDetail = new RoomBookingDetails();
+
+				roomBookingDetail.setBookingId(Integer.parseInt(rs.getString("BOOKING_ID")));
+				roomBookingDetail.setUserName(rs.getString("USER_NAME"));
+				roomBookingDetail.setFromDate(rs.getString("FROM_DATE"));
+				roomBookingDetail.setToDate(rs.getString("TO_DATE"));
+				roomBookingDetail.setRoomType(rs.getString("ROOM_TYPE"));
+				roomBookingDetail.setNoOfRooms(Integer.parseInt(rs.getString("NO_OF_ROOM")));
+				roomBookingDetail.setNoOfAdults(Integer.parseInt(rs.getString("NO_OF_ADULTS")));
+				roomBookingDetail.setBasicPrice(Double.parseDouble(rs.getString("BASIC_PRICE")));
+				roomBookingDetail.setExtraGuestFee(Double.parseDouble(rs.getString("GUEST_CHARGE")));
+				roomBookingDetail.setTaxAmount(Double.parseDouble(rs.getString("TAX_AMOUNT")));
+				roomBookingDetail.setTotalPrice(Double.parseDouble(rs.getString("TOTAL_PRICE")));
+				roomBookingDetail.setStatus(rs.getString("STATUS"));
+
+				roomBookingDetailList.add(roomBookingDetail);
+			}
+
+			System.out.println("#### roomBookingDetailList " + roomBookingDetailList);
+			return roomBookingDetailList;
+		} catch (SQLException e) {
+			System.out.println(e);
+
+		} finally {
+			DatabaseUtil.closeResultSet(rs);
+			DatabaseUtil.closePreparedStatement(ps);
+			pool.closeConnection(connection);
+		}
+		return null;
 	}
 
 }

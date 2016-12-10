@@ -12,7 +12,7 @@
 <body>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>Search Available Rooms for CheckIn</h2>
+	<h3>Search Available Rooms for CheckIn</h3>
 
 	<p class="text-danger">${emptySearch}</p>
 	<p class="text-danger">${roomNotAvailable}</p>

@@ -25,10 +25,11 @@
 		</tr>
 	</table>
 	
-	<h2>Contact Details</h2>
+	<h3>Contact Details</h3>
 
 	<p class="text-danger">${emptyContactMsg}</p>
-
+	<p class="text-danger">${phNumMsg}</p>
+	
 	<form:errors path="registerProfile.*" />
 	<form name="contactDetails" action="ContactDetailServlet" method="post">
 		<table class="table">

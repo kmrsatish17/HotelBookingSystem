@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,15 @@ public class OprLoginServlet extends HttpServlet {
 				
 				String succLoginMsg = "You are Logged In";
 				request.setAttribute("succLoginMsg", succLoginMsg);
+				
+				Cookie userCookie = new Cookie("userCookie", oprUserName);
+				Cookie userCookie2 = new Cookie("userCookie", oprPassword);
+                userCookie.setMaxAge(1*60*60);
+                userCookie.setPath("/");
+                userCookie2.setMaxAge(1*60*60);
+                userCookie2.setPath("/");
+                response.addCookie(userCookie);
+                response.addCookie(userCookie2);
 				
 				request.getSession().setAttribute("oprUserName", oprUserName);
 

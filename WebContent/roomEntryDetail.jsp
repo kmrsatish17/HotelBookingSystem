@@ -10,25 +10,39 @@
 	<h2>${successReg}</h2>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>Room CheckIn Details</h2>
+	<h3>Room CheckIn Details</h3>
 
 	<p>${emptyMsg}</p>
 	<p>${bothPassNoMatchMsg}</p>
+	
+	<table align="right">
 
-	<form name="SubmitBookingDetail" action="searchRoomForEntry.jsp" method="post">
+		<tr>
+			<td>
+				<form name="logout" action="ExistingLogoutServlet" method="post"
+					align="right">
+					<input type="submit" name="logout" value="logout" &nsbp &nsbp /> <input
+						type="hidden" name="action" value="logout" />
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<form name="SubmitBookingDetail" action="searchRoomForEntry.jsp"
+		method="post">
 
 		<table class="table">
-		
-		    <tr>
+
+			<tr>
 				<td>First Name:</td>
 				<td>${roomEntryDetails.firstName}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Last Name:</td>
 				<td>${roomEntryDetails.lastName}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Booking ID:</td>
 				<td>${roomEntryDetails.bookId}</td>
@@ -53,10 +67,10 @@
 				<td>No. of Rooms:</td>
 				<td>${roomEntryDetails.noOfRooms}</td>
 			</tr>
-			
+
 			<tr>
 				<td>Allocated Room No.:</td>
-				<td style="width:50%"> </td>
+				<td style="width: 50%"></td>
 				<c:forEach items="${roomEntryDetails.roomNumberChecked}" var="item">
 					<tr>
 						<td></td>
@@ -69,6 +83,8 @@
 
 
 			<tr>
+				<td><INPUT TYPE="button" VALUE="Back"
+					onClick="history.go(-1);"></td>
 				<td colspan="10" align="right"><input type="submit"
 					value="Go to Room Entry Search Page" /></td>
 			</tr>

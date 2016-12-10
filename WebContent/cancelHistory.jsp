@@ -18,16 +18,6 @@
 
 		<tr>
 
-
-			<td>
-				<form name="logout" action="CancelHistoryServlet" method="post"
-					align="right">
-					<input type="submit" name="logout" value="Cancel Booking History" &nsbp &nsbp /> <input
-						type="hidden" name="action" value="logout" />
-				</form>
-			</td>
-			
-			<td> &nbsp &nbsp &nbsp &nbsp</td>
 			<td>
 				<form name="logout" action="ExistingLogoutServlet" method="post"
 					align="right">
@@ -38,7 +28,7 @@
 		</tr>
 	</table>
 
-	<h3 align="left">Room Booking History</h3>
+	<h3 align="left">Cancelled Booking History</h3>
 
 	<p class="text-success">${succCancleMsg}</p>
 	<p class="text-danger">${unSuccCancleMsg}</p>
@@ -61,31 +51,33 @@
 		</tr>
 	</table> -->
 
-	<form name="bookRoom" method="post">
+	<form name="userCancelledHistory" action="GotoUserDashboard" method="post">
 		<table class="table">
 
 			<tr>
-				<td><label path="radioBtn"></label></td>
+				<!-- <td><label path="radioBtn"></label></td> -->
 				<!-- <td><label path="radioBtn"></label></td> -->
 				<td><label path="bookingId">Booking ID</label></td>
 				<td><label path="fromDate">From Date</label></td>
 				<td><label path="toDate">To Date</label></td>
 				<td><label path="roomType">Room Type</label></td>
 				<td><label path="noOfRooms">No. of Rooms</label></td>
+				<td><label path="status">Booking Status</label></td>
 				<!-- <td><label path="radioBtn"></label></td>
 				<td><label path="radioBtn"></label></td> -->
 			</tr>
 
 			<c:forEach items="${bookingDetailList}" var="item">
 				<tr>
-					<td><input type="radio" name="myradio"
-						value="${item.bookingId}" /></td>
+					<%-- <td><input type="radio" name="myradio"
+						value="${item.bookingId}" /></td> --%>
 					<!-- <td><label path="radioBtn"></label></td> -->
 					<td><c:out value="${item.bookingId}" /></td>
 					<td><c:out value="${item.fromDate}" /></td>
 					<td><c:out value="${item.toDate}" /></td>
 					<td><c:out value="${item.roomType}" /></td>
 					<td><c:out value="${item.noOfRooms}" /></td>
+					<td><c:out value="${item.status}" /></td>
 					<!-- <td>
 						<form action="ModifyBooking" method="POST">
 						<div class="form-group">
@@ -112,17 +104,12 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>
-					<!-- <form action="CancelBooking" method="POST"> -->
-					<div class="form-group" flo="right">
-						<input type="submit" formaction="CancelBooking"
-							value="Cancel Booking" size="10" />
-					</div> <!-- </form> -->
-
-				</td>
-
+				
+				<td colspan="10" align="right"><input type="submit"
+					value="Go to Booking History" /></td>
 				<!-- <td style="width:10%"> </td> -->
 			</tr>
+
 
 		</table>
 

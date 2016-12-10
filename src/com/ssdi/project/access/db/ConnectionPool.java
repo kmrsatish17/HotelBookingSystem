@@ -28,16 +28,14 @@ public class ConnectionPool {
 
 		if (testDb) {
 
-			URL = "jdbc:mysql://localhost:3306/hoteldb"; // connecting to
-															// the
+			URL = "jdbc:mysql://localhost:3306/hoteldbtest"; // connecting to test db
 			// Database users
 			user = "root";
 			pass = "root";
 
 		} else {
 
-			URL = "jdbc:mysql://localhost:3306/hoteldb"; // connecting to
-															// the
+			URL = "jdbc:mysql://localhost:3306/hoteldb"; // connecting to prod db
 			// Database users
 			user = "root";
 			pass = "root";

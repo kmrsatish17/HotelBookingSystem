@@ -9,7 +9,7 @@
 	<h2>${successReg}</h2>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>Room Booking Details</h2>
+	<h3>Room Booking Details</h3>
 
 	<p>${emptyMsg}</p>
 	<p>${bothPassNoMatchMsg}</p>
@@ -54,7 +54,7 @@
 			</tr>
 			
 			<tr>
-				<td>Cabe Facility Charge:</td>
+				<td>Cab Facility Charge:</td>
 				<td>${bookingDetails.cabeCharge}</td>
 			</tr>
 			

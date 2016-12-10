@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ssdi.project.access.db.UserProfileDao;
 import com.ssdi.project.access.db.UserProfileDaoImpl;
 import com.ssdi.project.beans.RoomBookingDetails;
+import com.ssdi.project.beans.UserProfile;
 
 @WebServlet(name = "CancelBooking", urlPatterns = { "/CancelBooking" })
 public class CancelBookingServlet extends HttpServlet {
@@ -48,8 +49,14 @@ public class CancelBookingServlet extends HttpServlet {
 				List<RoomBookingDetails> bookingDetailList = userDao.getBookingDetails(userNameExisting, false);
 				System.out.println("^^^ bookingDetailList " + bookingDetailList);
 				request.setAttribute("bookingDetailList", bookingDetailList);
+				
+				// Get contact details
+				UserProfile userProfile = userDao.getUserProfile(userNameExisting, false);
+				
+				request.setAttribute("bookingDetailSelected", bookingDetailSelected);
+				request.setAttribute("userProfile", userProfile);
 				request.setAttribute("succCancleMsg", succCancleMsg);
-				url = "/userDashboard.jsp";
+				url = "/cancelBookingDetail.jsp";
 				getServletContext().getRequestDispatcher(url).forward(request, response);
 
 			} else {

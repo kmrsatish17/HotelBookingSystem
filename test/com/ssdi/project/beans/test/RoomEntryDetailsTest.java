@@ -71,6 +71,34 @@ public class RoomEntryDetailsTest {
 	}
 	
 	
+	@Test
+	public void test2() throws Exception {
+		
+		roomEntryDetails = new RoomEntryDetails();
+		
+		roomEntryDetails.setBookId("111");
+		roomEntryDetails.setFirstName("");
+		roomEntryDetails.setFromDate("2016-11-04");
+		roomEntryDetails.setLastName("kmrsat");
+		roomEntryDetails.setNoOfRooms(21);
+		roomEntryDetails.setOprUserName("ksujal");
+		roomEntryDetails.setRoomNumber("102");
+        roomEntryDetails.setRoomType("luxury");
+        roomEntryDetails.setToDate("2016-11-05");
+        
+		
+		assertEquals("111", roomEntryDetails.getBookId());
+		assertEquals("", roomEntryDetails.getFirstName());
+		assertEquals("2016-11-04", roomEntryDetails.getFromDate());
+		assertEquals("kmrsat", roomEntryDetails.getLastName());
+		assertEquals(21, roomEntryDetails.getNoOfRooms());
+		assertEquals("ksujal", roomEntryDetails.getOprUserName());
+		assertEquals("102", roomEntryDetails.getRoomNumber());
+		assertEquals("luxury", roomEntryDetails.getRoomType());
+		assertEquals("2016-11-05",  roomEntryDetails.getToDate());
+	}
+	
+	
 
 
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,15 @@ public class UserLoginServlet extends HttpServlet {
 				
 				String succLoginMsg = "You are Logged In";
 				request.setAttribute("succLoginMsg", succLoginMsg);
+				
+				Cookie userCookie = new Cookie("userCookie", userName);
+				Cookie userCookie2 = new Cookie("userCookie", password);
+                userCookie.setMaxAge(1*60*60);
+                userCookie.setPath("/");
+                userCookie2.setMaxAge(1*60*60);
+                userCookie2.setPath("/");
+                response.addCookie(userCookie);
+                response.addCookie(userCookie2);
 				
 				RoomBookingDetails roomBookingDetails =  (RoomBookingDetails) request.getSession().getAttribute("roomBookingDetails");
 				roomBookingDetails.setUserName(userName);

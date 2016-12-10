@@ -41,6 +41,19 @@
 	<p class="text-danger">${emptyEntryMsg}</p>
 	<p class="text-danger">${roomReqNotMatchingMsg}</p>
 	<p class="text-danger">${dateNotProper}</p>
+	
+	<table align="right">
+
+		<tr>
+			<td>
+				<form name="logout" action="ExistingLogoutServlet" method="post"
+					align="right">
+					<input type="submit" name="logout" value="logout" &nsbp &nsbp /> <input
+						type="hidden" name="action" value="logout" />
+				</form>
+			</td>
+		</tr>
+	</table>
 
 	<form name="enterRoom" action="RoomEntryServlet" method="post">
 		<table class="table">
@@ -119,6 +132,7 @@
 			</div>
 
 			<tr>
+			    <td ><INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);"></td>
 				<td colspan="10" align="right"><input type="submit"
 					value="CheckIn Rooms" /></td>
 			</tr>

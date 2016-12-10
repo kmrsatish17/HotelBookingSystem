@@ -24,11 +24,11 @@
 		</tr>
 	</table>
     
-    <h2>Booking Confirmation</h2>
+    <h3>Booking Confirmation</h3>
     
 	<%-- <p>${bookSuccessful}</p> --%>
 	<p class="text-success">${bookSuccessful}</p>
-	<h3>Booking Receipt</h3>
+	<h4>Booking Receipt</h4>
 	
 	
 	<form name="userPayment" action="searchRoom.jsp" method="post">
@@ -119,7 +119,7 @@
 			</tr>
 			
 			<tr>
-				<td>Cabe Facility Charge:</td>
+				<td>Cab Facility Charge:</td>
 				<td>${bookSuccessfulDetails.cabeCharge}</td>
 			</tr>
 			

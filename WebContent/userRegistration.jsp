@@ -11,7 +11,7 @@
 <body>
 
 	<h1 align="center" class="bg-primary">Hotel Booking System</h1>
-	<h2>User Registration</h2>
+	<h3>User Registration</h3>
 
     <p class="text-danger">${emptyMsg}</p>
     <p class="text-danger">${bothPassNoMatchMsg}</p>

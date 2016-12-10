@@ -1,5 +1,7 @@
 package com.ssdi.project.beans;
 
+import java.util.Arrays;
+
 public class RoomEntryDetails {
 	
 	private String firstName;
@@ -74,6 +76,13 @@ public class RoomEntryDetails {
 	}
 	public void setBookId(String bookId) {
 		this.bookId = bookId;
+	}
+	@Override
+	public String toString() {
+		return "RoomEntryDetails [firstName=" + firstName + ", lastName=" + lastName + ", fromDate=" + fromDate
+				+ ", toDate=" + toDate + ", roomNumberChecked=" + Arrays.toString(roomNumberChecked) + ", roomType="
+				+ roomType + ", noOfRooms=" + noOfRooms + ", bookId=" + bookId + ", oprUserName=" + oprUserName
+				+ ", roomNumber=" + roomNumber + "]";
 	}
 	
 	

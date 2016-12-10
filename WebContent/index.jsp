@@ -28,6 +28,9 @@
 			</div>
 		</form>
 		
+		<br />
+		<br />
+		
 		<INPUT TYPE="button" VALUE="Back" onClick="history.go(-1);">
 		
 

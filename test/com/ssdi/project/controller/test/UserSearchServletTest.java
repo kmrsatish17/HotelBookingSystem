@@ -1,5 +1,6 @@
 package com.ssdi.project.controller.test;
 
+import com.ssdi.project.access.db.UserProfileDao;
 import com.ssdi.project.beans.RoomSearchSelectDetails;
 import com.ssdi.project.controller.UserSearchServlet;
 import junit.framework.TestCase;
@@ -15,7 +16,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
 
 public class UserSearchServletTest extends TestCase {
 
@@ -47,12 +52,10 @@ public class UserSearchServletTest extends TestCase {
 	@Test
 	public void test() throws Exception {
 
-		/*
-		 * HttpServletRequest request = mock(HttpServletRequest.class);
-		 * HttpServletResponse response = mock(HttpServletResponse.class);
-		 * HttpSession session = mock(HttpSession.class); RequestDispatcher
-		 * rd=mock(RequestDispatcher.class);
-		 */
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
+		HttpSession session = mock(HttpSession.class);
+		RequestDispatcher rd = mock(RequestDispatcher.class);
 
 		when(request.getParameter("fromDate")).thenReturn("11/30/2016");
 		when(request.getParameter("toDate")).thenReturn("11/30/2016");
@@ -68,32 +71,30 @@ public class UserSearchServletTest extends TestCase {
 
 		new UserSearchServlet().doPost(request, response);
 		
-		RoomSearchSelectDetails selectedDetails = new RoomSearchSelectDetails();
-		List<String> roomTypeList = new ArrayList<String>();
-		roomTypeList.add("deluxe");
-		/*roomTypeList.add("luxury");
-		roomTypeList.add("super deluxe");*/
-		selectedDetails.setFromDateSelected("11/30/2016");
-		selectedDetails.setToDateSelected("11/30/2016");
-		selectedDetails.setNoOfRoomSelected("5");
-		selectedDetails.setNoOfAdultsSelected("5");
-		selectedDetails.setRoomTypeAvailable(roomTypeList);
+		UserProfileDao userDaoTest =mock(UserProfileDao.class);
+		
+		Date fromDate = null;
+		Date toDate = null;
 
-		// Verify the session attribute value selectDetails
+		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+		try {
+
+			fromDate = (Date) formatter.parse("11/30/2016");
+			toDate = (Date) formatter.parse("11/30/2016");
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
-		String fromDateTest = selectedDetails.getFromDateSelected();
-		String toDateTest = selectedDetails.getToDateSelected();
-		String noOfRoomTest = selectedDetails.getNoOfRoomSelected();
+		when(userDaoTest.searchForRoom(fromDate, toDate, true)).thenReturn(null);
+		assertEquals(null,userDaoTest.searchForRoom(fromDate, toDate, true));
 		
-		verify(request.getSession()).setAttribute("selectDetails", selectedDetails);
+		when(userDaoTest.getRoomPricePerDay("deluxe", true)).thenReturn(2000.0);
+		assertEquals(2000.0,userDaoTest.getRoomPricePerDay("deluxe", true));
+		
 		verify(rd).forward(request, response);
-
-		String result = sw.getBuffer().toString().trim();
-
-		System.out.println("Result: " + result);
-
-		//assertEquals("Login successfull...", result);
-
 	}
 
 }

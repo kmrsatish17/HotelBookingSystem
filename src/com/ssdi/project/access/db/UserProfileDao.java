@@ -22,7 +22,7 @@ public interface UserProfileDao {
 	
 	public List<String> searchRoomForEntry(String roomTypeName, int noOfRooms, boolean testDb);
 	
-	public boolean getPaymentValidity(String cardNumberInt, String cardName, int cvvNumberInt, boolean testDb);
+	public boolean getPaymentValidity(String cardNumberInt, String cardName, int cvvNumberInt, String expDate, boolean testDb);
 
 	public int saveBookingDetails(RoomBookingDetails roomBookingDetails, boolean testDb);
 	
@@ -35,6 +35,8 @@ public interface UserProfileDao {
 	public double getRoomPricePerDay(String roomType, boolean testDb);
 	
 	public List<RoomBookingDetails> getBookingDetails(String userName, boolean testDb);
+	
+	public List<RoomBookingDetails> getCancelledBookingDetails(String userName, boolean testDb);
 	
 	public RoomBookingDetails getBookingDetailsById(String bookingId, boolean testDb);
 	
